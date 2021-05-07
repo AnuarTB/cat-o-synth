@@ -14,10 +14,14 @@
     background-color: grey;
     border: 0.5px solid black;
 }
-.cell-end {
+.end {
     height: 100%;
     width: 30px;
     background-color: grey;
     border: 0.5px solid black;
     border-right-width: 3px;
+}
+.active {
+    background-color: blue;
+    border-radius: 2px;
 }
