@@ -11,9 +11,11 @@
     }
 
     class Player {
-      constructor(beats_queue) {
+      constructor(beats_queue, bpm) {
         // bpm?
         this.beats_queue = beats_queue;
+        this.bpm = bpm;
+        this.interval_ms = 15000.0 / this.bpm;
         this.bar = 0;
         this.subbeat = 0;
         this.keyboard = null;
@@ -48,7 +50,7 @@
 
         // Move to the next subbeat
         this.inc();
-        setTimeout(() => { this.playBeat(); }, 1000);
+        setTimeout(() => { this.playBeat(); }, this.interval_ms);
       }
 
       async play() {
@@ -57,7 +59,7 @@
         await page.goto('https://bongo.cat/');
         this.keyboard = page.keyboard;
 
-        setTimeout(() => { this.playBeat(); }, 1000);
+        setTimeout(() => { this.playBeat(); }, this.interval_ms);
       }
     }
 
@@ -65,14 +67,21 @@
       .usage('Usage: $0 <command> [options]')
       .command('read', 'Read music from file')
       .example('$0 read -f music.json', 'read music from json file')
-      .alias('f', 'file')
-      .nargs('f', 1)
-      .describe('f', 'Load a file')
-      .help('h')
+      .option('file', {
+        alias: 'f',
+        type: 'string',
+        description: 'JSON file of music sheet'
+      })
+      .option('bpm', {
+        alias: 'b',
+        type: 'integer',
+        description: 'Beats per minute',
+        default: 90
+      })
       .alias('h', 'help').argv;
 
     const queue = new ps.BeatQueue(argv.file);
-    const player = new Player(queue);
+    const player = new Player(queue, argv.bpm);
     await player.play();
   } catch (e) {
     console.log(e);
