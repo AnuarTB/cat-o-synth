@@ -18,6 +18,7 @@
         this.subbeat = 0;
         this.keyboard = null;
         this.timer = null;
+        this.browser = null;
       }
 
       inc() {
@@ -31,8 +32,10 @@
       async playBeat() {
         debugger
         let bar, subbeat, notes, head;
-        head = await this.beats_queue.head();
+        head = this.beats_queue.head();
         if(!head){
+          await sleep(2000);
+          await this.browser.close();
           return;
         }
         [bar, subbeat, notes] = head;
@@ -40,26 +43,25 @@
           for(let note of notes) {
             await this.keyboard.press(note);
           }
-          await this.beats_queue.next();
+          this.beats_queue.next();
         }
+
         // Move to the next subbeat
         this.inc();
-        //setTimeout(this.playBeat, 1000);
+        setTimeout(() => { this.playBeat(); }, 1000);
       }
 
       async play() {
-        const browser = await puppeteer.launch({ headless: false });
-        const page = await browser.newPage();
+        this.browser = await puppeteer.launch({ headless: false });
+        const page = await this.browser.newPage();
         await page.goto('https://bongo.cat/');
         this.keyboard = page.keyboard;
 
-        setTimeout(this.playBeat, 1000);
-        await sleep(2000);
-        await browser.close();
+        setTimeout(() => { this.playBeat(); }, 1000);
       }
     }
 
-    /*const argv = require('yargs')
+    const argv = require('yargs')
       .usage('Usage: $0 <command> [options]')
       .command('read', 'Read music from file')
       .example('$0 read -f music.json', 'read music from json file')
@@ -67,9 +69,9 @@
       .nargs('f', 1)
       .describe('f', 'Load a file')
       .help('h')
-      .alias('h', 'help').argv;*/
+      .alias('h', 'help').argv;
 
-    const queue = new ps.BeatQueue('../example.json');
+    const queue = new ps.BeatQueue(argv.file);
     const player = new Player(queue);
     await player.play();
   } catch (e) {
