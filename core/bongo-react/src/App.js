@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
         Hello world!
-        <Table blocks={1} blockSize={8} />
+        <Table rowSize={5} blocks={1} blockSize={16} />
     </div>
   );
 }

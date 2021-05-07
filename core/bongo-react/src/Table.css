@@ -1,0 +1,23 @@
+.table-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    height: 20px;
+}
+
+.cell {
+    height: 100%;
+    width: 30px;
+    background-color: grey;
+    border: 0.5px solid black;
+}
+.cell-end {
+    height: 100%;
+    width: 30px;
+    background-color: grey;
+    border: 0.5px solid black;
+    border-right-width: 3px;
+}
