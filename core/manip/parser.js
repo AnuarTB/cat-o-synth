@@ -1,5 +1,3 @@
-const fs = require('fs')
-
 const MAX_BARS = 10;
 
 class BeatQueue {
@@ -12,12 +10,26 @@ class BeatQueue {
         this.move();
     }
 
+    check_bar() {
+        return this.beats.hasOwnProperty(this.bar)
+    }
+
+    check_subbeat() {
+        return this.beats[this.bar].hasOwnProperty(this.subbeat.toString())
+    }
+
     move() {
-        if (this.bar == MAX_BARS) {
+        if (this.bar == MAX_BARS)
+            return;
+        
+        if (!this.check_bar()) {
+            this.bar++;
+            this.subbeat = 0;
+            this.move();
             return;
         }
 
-        while (this.subbeat < 16 && !this.beats[this.bar].hasOwnProperty(this.subbeat.toString())) {
+        while (this.subbeat < 16 && !this.check_subbeat()) {
             this.subbeat++;
         }
         
@@ -29,10 +41,7 @@ class BeatQueue {
     }
 
     head() {
-        if (!this.beats.hasOwnProperty(this.bar))
-            return null;
-        
-        if (!this.beats[this.bar].hasOwnProperty(this.subbeat.toString()))
+        if (!this.check_bar() || !this.check_subbeat())
             return null;
         
         return [this.bar, this.subbeat, this.beats[this.bar][this.subbeat.toString()]]
@@ -45,18 +54,4 @@ class BeatQueue {
     }
 }
 
-
-fs.readFile('./example.json', 'utf8', (err, beats) => {
-    if (err) {
-        console.log("File read failed:", err)
-        return
-    }
-
-    let myBeats = new BeatQueue(JSON.parse(beats))
-
-    console.log(myBeats.head())
-    myBeats.next()
-    console.log(myBeats.head())
-    myBeats.next()
-    console.log(myBeats.head())
-})
+module.exports.BeatQueue = BeatQueue;
