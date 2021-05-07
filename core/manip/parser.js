@@ -1,9 +1,10 @@
 const MAX_BARS = 10;
-const fs = require('fs');
 
 class BeatQueue {
-    constructor(file) {
-        this.beats = require(file);
+    constructor(beats) {
+        console.log(beats);
+        
+        this.beats = beats;
 
         // current bar and subbeat
         this.bar = 0;
