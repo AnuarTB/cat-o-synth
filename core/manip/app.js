@@ -13,9 +13,9 @@ app.post('/', jsonParser, async (req, res) => {
   const pl = require('./player');
 
   const queue = new ps.BeatQueue(req.body);
-  const player = new pl.Player(queue, 60);
+  const player = new pl.Player(queue);
   await player.play();
-  
+
   res.send('Hello World!');
 })
 

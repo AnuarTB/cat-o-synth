@@ -5,10 +5,10 @@ function sleep(ms) {
 }
 
 class Player {
-  constructor(beats_queue, bpm) {
+  constructor(beats_queue) {
     // bpm?
     this.beats_queue = beats_queue;
-    this.bpm = bpm;
+    this.bpm = beats_queue.bpm;
     this.interval_ms = 15000.0 / this.bpm;
     this.bar = 0;
     this.subbeat = 0;
