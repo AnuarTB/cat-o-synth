@@ -26,7 +26,7 @@ function App() {
         1: 'D',
         2: 'F',
         3: 'C',
-        4: 'SPACE',
+        4: 'Space',
         5: 'B',
         16: 'Q',
         17: 'W',
@@ -69,11 +69,11 @@ function App() {
             'bpm': 60
         }
         console.log("hello!");
-        console.log(notes);
+        console.log(tmp);
         // xhr.setRequestHeader();
         // axios.defaults.headers = {"Api-key": "d2510238-af47-11eb-86a8-0242ac110008"};
         axios.defaults.headers = {"Content-Type": "application/json;charset=UTF-8"};
-        axios.post("http://localhost:3000/", JSON.stringify(notes))
+        axios.post("http://localhost:3000/", JSON.stringify(tmp))
             .then((res) => {
                 console.log(res.data.uri);
             });
