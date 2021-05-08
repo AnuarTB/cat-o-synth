@@ -23,8 +23,26 @@ function App() {
     const [notes, setNotes] = useState(initial_notes);
     const num_to_keyboard = {
         0: 'A',
-        1: 'D'
+        1: 'D',
+        2: 'F',
+        3: 'C',
+        4: 'SPACE',
+        5: 'B',
+        16: 'Q',
+        17: 'W',
+        18: 'E',
+        19: 'R',
+        20: 'T',
+        21: 'Y',
+        22: 'U',
+        23: 'I',
+        24: 'O',
+        25: 'P',
     }
+    for(let i = 6; i < 6 + 9; i ++)
+        num_to_keyboard[i] = (i - 5).toString();
+    num_to_keyboard[15] = '0';
+
     const toggleNote = (barId, sectionId, rowId) => {
         let copy_notes = [...notes];
         console.log(`bar: ${barId} section: ${sectionId} row: ${rowId}`)
@@ -46,16 +64,19 @@ function App() {
     }
 
     const createJson = () => {
-        let res = {
-            'notes': notes
+        let tmp = {
+            'notes': notes,
+            'bpm': 60
         }
         console.log("hello!");
-        console.log(res);
+        console.log(notes);
+        // xhr.setRequestHeader();
         // axios.defaults.headers = {"Api-key": "d2510238-af47-11eb-86a8-0242ac110008"};
-        // axios.post("https://json.extendsclass.com/bin", JSON.stringify(notes))
-        //     .then((res) => {
-        //         console.log(res.data.uri);
-        //     });
+        axios.defaults.headers = {"Content-Type": "application/json;charset=UTF-8"};
+        axios.post("http://localhost:3000/", JSON.stringify(notes))
+            .then((res) => {
+                console.log(res.data.uri);
+            });
     }
 
     return (
