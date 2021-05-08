@@ -40,7 +40,7 @@ function RenderCell(props) {
         <div onClick={() => {
             props.play();
             console.log(barId, section, id);
-            props.addNote(barId, section, id);
+            props.toggleNote(barId, section, id);
             setActive(!active);
         }} className={clsName}></div>
     );
@@ -51,7 +51,7 @@ function RenderBar(props) {
     let tmp = [];
     const [play] = useSound(order[props.id]);
     for (let i = 0; i < props.n; i++) {
-        tmp.push(<RenderCell id={props.id} barId={props.barId} section={i} addNote={props.addNote} isEnd={i === (props.n - 1) ? true : false} play={play}/>);
+        tmp.push(<RenderCell id={props.id} barId={props.barId} section={i} toggleNote={props.toggleNote} isEnd={i === (props.n - 1) ? true : false} play={play}/>);
     }
     return tmp;
 }
@@ -61,9 +61,12 @@ function RenderRow(props) {
     for (let j = 0; j < props.n; j++) {
         let tmp = [];
         for (let i = 0; i < props.k; i++) {
-            tmp.push(<RenderBar n={props.m} id={j} barId={i} barSz={props.k} addNote={props.addNote}/>);
+            tmp.push(<RenderBar n={props.m} id={j} barId={i} barSz={props.k} toggleNote={props.toggleNote}/>);
         }
-        rowElements.push(<div className="row">{tmp}</div>);
+        if(j == 1 || j == 2 || j == 3 || j == 4 || j == 5 || j == 15 || j == 25)
+            rowElements.push(<div className="row-end">{tmp}</div>);
+        else
+            rowElements.push(<div className="row">{tmp}</div>);
     }
     return rowElements;
 }
@@ -72,9 +75,7 @@ function Table(props) {
 
     return (
         <div className="table-wrapper">
-            
-            <RenderRow n={26} m={16} k={props.barNum} addNote={props.addNote}/>
-            
+            <RenderRow n={26} m={16} k={props.barNum} toggleNote={props.toggleNote}/>
         </div>
     );
 }
