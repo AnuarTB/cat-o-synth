@@ -15,6 +15,7 @@ class Player {
     this.keyboard = null;
     this.timer = null;
     this.browser = null;
+    this.last_key = null;
   }
 
   inc() {
@@ -26,7 +27,10 @@ class Player {
   }
 
   async playBeat() {
-    debugger
+    if(this.last_key) {
+      await this.keyboard.up(this.last_key);
+      this.last_key = null;
+    }
     let bar, subbeat, notes, head;
     head = this.beats_queue.head();
     if(!head){
@@ -36,8 +40,12 @@ class Player {
     }
     [bar, subbeat, notes] = head;
     if(this.bar == bar && this.subbeat == subbeat) {
-      for(let note of notes) {
-        await this.keyboard.press(note);
+      for(let i = 0; i < notes.length; i++) {
+        await this.keyboard.press(notes[i]);
+      }
+      if (notes.length > 0) {
+        await this.keyboard.down(notes[notes.length - 1]);
+        this.last_key = notes[notes.length - 1];
       }
       this.beats_queue.next();
     }
