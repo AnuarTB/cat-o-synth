@@ -26,7 +26,7 @@ function App() {
         1: 'D',
         2: 'F',
         3: 'C',
-        4: 'SPACE',
+        4: 'Space',
         5: 'B',
         16: 'Q',
         17: 'W',
