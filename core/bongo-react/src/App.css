@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.my-input {
+    width: 220px;
+    display: flex;
+}
+
 .horizontal {
     width: 100%;
     display: flex;

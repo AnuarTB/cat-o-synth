@@ -3,11 +3,12 @@ import 'antd/dist/antd.css';
 import axios from 'axios';
 import Table from "./Table";
 import { useState } from 'react';
-import { Button, Radio } from 'antd';
+import {Button, Radio, Space} from 'antd';
 import bongo_cat from './images/bongo-cat-sticker.jpg';
 import Text from "antd/es/typography/Text";
 import Title from "antd/es/typography/Title";
 import Names from "./Names";
+import NumericInput from "./NumericInput";
 
 function arrayRemove(arr, value) {
     return arr.filter(function(ele){
@@ -21,6 +22,8 @@ function App() {
     for (let i = 0; i < block_num; i ++)
         initial_notes.push({});
     const [notes, setNotes] = useState(initial_notes);
+    const [value, setValue] = useState(60);
+
     const num_to_keyboard = {
         0: 'A',
         1: 'D',
@@ -66,7 +69,7 @@ function App() {
     const createJson = () => {
         let tmp = {
             'notes': notes,
-            'bpm': 60
+            'bpm': value
         }
         console.log("hello!");
         console.log(tmp);
@@ -86,6 +89,13 @@ function App() {
                     Welcome to Bongo Cat music sequencer!
                 </Title>
                 <img className={"cropped1"} src={bongo_cat} alt={'Bongo Cat'}/>
+                <br/>
+                <div className={'my-input'}>
+                    <Space size={10}>
+                        <Text> Bpm: </Text>
+                        <NumericInput value={value} onChange={setValue}/>
+                    </Space>
+                </div>
             </div>
             <br/>
             <div className={'horizontal'}>
