@@ -1,1 +1,1 @@
-# bongo-cat-music-gen
+# CaT-O-sYnTh
