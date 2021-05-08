@@ -86,7 +86,7 @@ function App() {
         <div>
             <div className={'container'}>
                 <Title>
-                    Welcome to Bongo Cat music sequencer!
+                    Welcome to CaT-O-sYnTh!!!111!1
                 </Title>
                 <img className={"cropped1"} src={bongo_cat} alt={'Bongo Cat'}/>
                 <br/>
