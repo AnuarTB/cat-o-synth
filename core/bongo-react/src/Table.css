@@ -1,0 +1,36 @@
+.table-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    overflow: auto;
+}
+
+.row {
+    display: flex;
+    height: 20px;
+}
+
+.row-end {
+    display: flex;
+    height: 20px;
+    margin-bottom: 5px;
+}
+
+.cell {
+    height: 100%;
+    width: 30px;
+    min-width: 30px;
+    background-color: grey;
+    border: 0.5px solid black;
+}
+.end {
+    height: 100%;
+    width: 30px;
+    background-color: grey;
+    border: 0.5px solid black;
+    border-right-width: 3px;
+}
+.active {
+    background-color: blue;
+    border-radius: 2px;
+}
