@@ -27,11 +27,12 @@ function App() {
     }
 
     const createJson = () => {
-        axios.defaults.headers = {"Api-key": "d2510238-af47-11eb-86a8-0242ac110008"};
-        axios.post("https://json.extendsclass.com/bin", JSON.stringify(notes))
-            .then((res) => {
-                console.log(res.data.uri);
-            });
+        console.log("hello!");
+        // axios.defaults.headers = {"Api-key": "d2510238-af47-11eb-86a8-0242ac110008"};
+        // axios.post("https://json.extendsclass.com/bin", JSON.stringify(notes))
+        //     .then((res) => {
+        //         console.log(res.data.uri);
+        //     });
     }
 
     return (
